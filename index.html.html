@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RentFlow — Sua locadora organizada de verdade, do pré-cadastro ao financeiro</title>
+<meta name="description" content="Sistema completo de gestão para locadoras de veículos brasileiras. Pré-cadastro online, checklist com diagrama, controle de multas, contratos personalizados e dashboard. Teste 7 dias grátis.">
+<meta name="keywords" content="sistema para locadora de veículos, gestão locadora carros, software locadora, rentflow, pré-cadastro locadora">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --primary:#185FA5;
+  --primary-dark:#0C447C;
+  --primary-light:#378ADD;
+  --primary-bg:#E6F1FB;
+  --accent:#FFC859;
+  --text:#1A1A1A;
+  --text-muted:#666;
+  --text-light:#888;
+  --bg:#FAFAF7;
+  --bg-soft:#F5F4EF;
+  --border:#E6E4DC;
+  --success:#3B6D11;
+  --success-bg:#EAF3DE;
+  --danger:#A32D2D;
+  --danger-bg:#FCEBEB;
+  --soon:#854F0B;
+  --soon-bg:#FAEEDA;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',system-ui,sans-serif;background:#fff;color:var(--text);line-height:1.55;font-size:16px;}
+img{max-width:100%;display:block;}
+a{color:var(--primary);text-decoration:none;}
+.container{max-width:1180px;margin:0 auto;padding:0 24px;}
+
+/* ANNOUNCEMENT BAR */
+.announce{
+  background:linear-gradient(90deg,var(--primary-dark),var(--primary));
+  color:#fff;text-align:center;padding:8px 0;font-size:12.5px;
+}
+.announce strong{color:var(--accent);}
+.announce a{color:#fff;text-decoration:underline;margin-left:6px;font-weight:600;}
+
+/* NAVBAR */
+.navbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:14px 0;}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;}
+.nav-logo{display:flex;align-items:center;gap:10px;}
+.nav-logo svg{width:34px;height:34px;}
+.nav-logo-name{font-size:18px;font-weight:800;letter-spacing:-0.02em;color:var(--primary-dark);}
+.nav-logo-name .flow{color:var(--primary);}
+.nav-links{display:flex;gap:28px;align-items:center;}
+.nav-link{font-size:14px;font-weight:500;color:var(--text-muted);cursor:pointer;}
+.nav-link:hover{color:var(--primary);}
+.nav-cta{display:flex;gap:10px;align-items:center;}
+.btn{padding:10px 18px;font-size:13.5px;font-weight:600;border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;border:none;font-family:'Inter',sans-serif;transition:all 0.15s;white-space:nowrap;text-decoration:none;}
+.btn-ghost{background:transparent;color:var(--text);}
+.btn-ghost:hover{color:var(--primary);}
+.btn-outline{background:#fff;color:var(--primary);border:1.5px solid var(--primary);}
+.btn-outline:hover{background:var(--primary-bg);}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;box-shadow:0 4px 12px rgba(24,95,165,0.2);}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(24,95,165,0.32);}
+.btn-accent{background:var(--accent);color:var(--text);font-weight:700;}
+.btn-accent:hover{background:#FFB833;}
+.btn-lg{padding:14px 24px;font-size:15px;}
+.btn-xl{padding:16px 28px;font-size:16px;}
+
+/* HERO */
+.hero{position:relative;overflow:hidden;background:linear-gradient(180deg,#FAFAF7 0%,#fff 100%);padding:50px 0 70px;}
+.hero::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(24,95,165,0.08),transparent 65%);pointer-events:none;}
+.hero::after{content:'';position:absolute;bottom:-100px;left:-150px;width:400px;height:400px;background:radial-gradient(circle,rgba(255,200,89,0.1),transparent 65%);pointer-events:none;}
+.hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:var(--primary-bg);color:var(--primary-dark);border-radius:99px;font-size:12.5px;font-weight:600;margin-bottom:20px;}
+.hero-badge i{color:var(--primary);font-size:14px;}
+.hero h1{font-size:54px;font-weight:800;letter-spacing:-0.035em;line-height:1.08;color:var(--primary-dark);margin-bottom:20px;}
+.hero h1 .accent{color:var(--primary);position:relative;display:inline-block;}
+.hero h1 .accent::after{content:'';position:absolute;bottom:4px;left:0;right:0;height:8px;background:rgba(255,200,89,0.4);z-index:-1;}
+.hero p.lead{font-size:18px;color:var(--text-muted);line-height:1.6;margin-bottom:28px;max-width:540px;}
+.hero p.lead strong{color:var(--text);}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;}
+.hero-trust{display:flex;gap:20px;flex-wrap:wrap;font-size:12.5px;color:var(--text-light);}
+.hero-trust span{display:flex;align-items:center;gap:5px;}
+.hero-trust i{color:var(--success);font-size:14px;}
+
+/* MOCKUP */
+.hero-mockup{position:relative;background:linear-gradient(135deg,var(--primary-dark),var(--primary-light));border-radius:18px;padding:8px;box-shadow:0 30px 60px -15px rgba(24,95,165,0.4);transform:rotate(-1deg);}
+.mockup-window{background:#fff;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.2);}
+.mockup-titlebar{background:#F5F4EF;padding:10px 14px;display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--border);}
+.mockup-dot{width:10px;height:10px;border-radius:50%;}
+.mockup-content{padding:18px;background:#fff;}
+.mockup-row{display:flex;gap:14px;margin-bottom:14px;}
+.mockup-side{width:120px;background:var(--bg-soft);border-radius:8px;padding:10px;font-size:11px;}
+.mockup-side-item{padding:6px 8px;margin-bottom:2px;border-radius:5px;color:var(--text-muted);}
+.mockup-side-item.active{background:var(--primary-bg);color:var(--primary-dark);font-weight:600;}
+.mockup-main{flex:1;}
+.mockup-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;}
+.mockup-metric{background:var(--bg-soft);border-radius:6px;padding:10px;}
+.mockup-metric-label{font-size:9px;color:var(--text-muted);}
+.mockup-metric-val{font-size:18px;font-weight:700;color:var(--primary-dark);margin-top:2px;}
+.mockup-metric-val.green{color:var(--success);}
+.mockup-chart{background:linear-gradient(135deg,var(--primary-bg),#F8FBFE);border-radius:6px;padding:12px;height:90px;position:relative;overflow:hidden;}
+.mockup-bars{display:flex;align-items:flex-end;gap:4px;height:60px;margin-top:6px;}
+.mockup-bar{flex:1;background:var(--primary);border-radius:2px 2px 0 0;}
+.mockup-bar:nth-child(1){height:30%;}
+.mockup-bar:nth-child(2){height:55%;}
+.mockup-bar:nth-child(3){height:40%;}
+.mockup-bar:nth-child(4){height:75%;}
+.mockup-bar:nth-child(5){height:60%;background:var(--accent);}
+.mockup-bar:nth-child(6){height:85%;}
+.mockup-bar:nth-child(7){height:70%;}
+.floating-notif{position:absolute;bottom:30px;left:-30px;background:#fff;border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:10px;box-shadow:0 16px 40px rgba(0,0,0,0.15);border:1px solid var(--border);transform:rotate(2deg);max-width:260px;}
+.floating-notif-ic{width:36px;height:36px;border-radius:50%;background:var(--success-bg);color:var(--success);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;}
+.floating-notif-text{font-size:12px;line-height:1.3;}
+.floating-notif-text strong{font-weight:700;color:var(--text);}
+.floating-notif-text small{font-size:10px;color:var(--text-light);}
+
+/* BENEFICIOS / VALOR */
+.value-section{padding:70px 0;background:var(--bg-soft);}
+.value-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:36px;}
+.value-card{background:#fff;border-radius:14px;padding:28px;border:1px solid var(--border);text-align:center;}
+.value-icon-big{width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 16px;}
+.value-card h3{font-size:18px;font-weight:700;color:var(--primary-dark);margin-bottom:8px;}
+.value-card p{font-size:14px;color:var(--text-muted);line-height:1.55;}
+.value-card p strong{color:var(--text);}
+
+/* STATS BAR */
+.stats-bar{background:var(--primary-dark);color:#fff;padding:32px 0;position:relative;overflow:hidden;}
+.stats-bar::before{content:'';position:absolute;top:-100px;right:-100px;width:300px;height:300px;background:radial-gradient(circle,rgba(255,200,89,0.15),transparent);}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center;position:relative;z-index:1;}
+.stat-num{font-size:42px;font-weight:800;letter-spacing:-0.02em;color:var(--accent);line-height:1;}
+.stat-label{font-size:13px;color:rgba(255,255,255,0.8);margin-top:6px;font-weight:500;}
+
+/* SECTION */
+.section{padding:80px 0;}
+.section-header{text-align:center;max-width:680px;margin:0 auto 50px;}
+.section-tag{display:inline-block;padding:5px 14px;background:var(--primary-bg);color:var(--primary-dark);border-radius:99px;font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:14px;}
+.section-title{font-size:42px;font-weight:800;color:var(--primary-dark);letter-spacing:-0.025em;line-height:1.15;margin-bottom:14px;}
+.section-title .accent{color:var(--primary);}
+.section-sub{font-size:17px;color:var(--text-muted);line-height:1.6;}
+
+/* FEATURES */
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.feature-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:28px;transition:all 0.25s;position:relative;}
+.feature-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(24,95,165,0.08);border-color:var(--primary-light);}
+.feature-card.soon{background:linear-gradient(180deg,#FFFBF4,#fff);}
+.feature-icon{width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:16px;}
+.feature-card.soon .feature-icon{background:linear-gradient(135deg,var(--soon),#B57014);}
+.feature-title{font-size:18px;font-weight:700;color:var(--primary-dark);margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.feature-desc{font-size:14px;color:var(--text-muted);line-height:1.55;}
+.feature-desc strong{color:var(--text);}
+.soon-tag{display:inline-block;padding:3px 9px;background:var(--soon-bg);color:var(--soon);border-radius:99px;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;}
+
+/* HOW IT WORKS */
+.how-section{background:var(--bg-soft);}
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.step-card{background:#fff;border-radius:14px;padding:24px;position:relative;border:1px solid var(--border);}
+.step-num{position:absolute;top:-16px;left:24px;width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;font-family:'JetBrains Mono',monospace;box-shadow:0 6px 16px rgba(24,95,165,0.25);}
+.step-card h3{font-size:16px;font-weight:700;color:var(--primary-dark);margin:14px 0 8px;}
+.step-card p{font-size:13.5px;color:var(--text-muted);line-height:1.5;}
+
+/* BIG FEATURES */
+.big-feature{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-bottom:80px;}
+.big-feature:last-child{margin-bottom:0;}
+.big-feature.reverse{direction:rtl;}
+.big-feature.reverse > *{direction:ltr;}
+.big-feature-content h3{font-size:34px;font-weight:800;color:var(--primary-dark);letter-spacing:-0.025em;line-height:1.2;margin-bottom:14px;}
+.big-feature-content h3 .accent{color:var(--primary);}
+.big-feature-content > p{font-size:16px;color:var(--text-muted);line-height:1.6;margin-bottom:20px;}
+.big-feature-content > p strong{color:var(--text);}
+.feature-list{list-style:none;}
+.feature-list li{display:flex;align-items:flex-start;gap:10px;padding:8px 0;font-size:14.5px;color:var(--text);}
+.feature-list li i{color:var(--success);font-size:18px;flex-shrink:0;margin-top:1px;}
+.feature-list li strong{font-weight:700;}
+
+.big-feature-visual{background:linear-gradient(135deg,var(--primary),var(--primary-light));border-radius:18px;padding:24px;min-height:340px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;box-shadow:0 20px 50px -10px rgba(24,95,165,0.3);}
+.big-feature-visual::before{content:'';position:absolute;top:-100px;right:-100px;width:300px;height:300px;background:radial-gradient(circle,rgba(255,200,89,0.25),transparent);}
+.visual-inner{position:relative;z-index:1;width:100%;color:#fff;}
+
+.mini-dash{background:#fff;border-radius:10px;padding:14px;box-shadow:0 8px 24px rgba(0,0,0,0.1);color:var(--text);}
+.mini-dash-title{font-size:11px;color:var(--text-muted);font-weight:600;margin-bottom:10px;}
+.mini-dash-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;}
+.mini-dash-row:last-child{border-bottom:none;}
+.mini-badge{font-size:10px;padding:3px 8px;border-radius:99px;font-weight:600;}
+.mini-badge.green{background:var(--success-bg);color:#27500A;}
+.mini-badge.amber{background:#FAEEDA;color:#854F0B;}
+.mini-badge.red{background:#FCEBEB;color:#791F1F;}
+.mini-badge.blue{background:var(--primary-bg);color:var(--primary-dark);}
+
+.car-mini{background:#fff;border-radius:10px;padding:18px;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,0.1);color:var(--text);}
+.car-mini-title{font-size:11px;color:var(--text-muted);margin-bottom:10px;font-weight:600;}
+.car-svg{width:200px;height:auto;margin:0 auto;}
+
+.precad-preview{background:#fff;border-radius:10px;padding:14px;box-shadow:0 8px 24px rgba(0,0,0,0.1);color:var(--text);}
+.precad-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);}
+.precad-item:last-child{border-bottom:none;}
+.precad-ic{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;}
+.precad-ic.green{background:var(--success-bg);color:var(--success);}
+.precad-ic.amber{background:#FAEEDA;color:#854F0B;}
+.precad-ic.blue{background:var(--primary-bg);color:var(--primary);}
+.precad-content{flex:1;font-size:12px;}
+.precad-title{font-weight:600;color:var(--text);}
+.precad-sub{color:var(--text-muted);font-size:11px;margin-top:2px;}
+
+/* PRICING */
+.pricing-section{background:linear-gradient(180deg,#fff 0%,#F5F4EF 100%);}
+.pricing-toggle{display:flex;justify-content:center;align-items:center;gap:10px;margin-bottom:32px;}
+.toggle-opt{padding:8px 18px;font-size:14px;color:var(--text-muted);cursor:pointer;border-radius:99px;font-weight:500;transition:all 0.2s;}
+.toggle-opt.active{background:var(--primary);color:#fff;font-weight:600;}
+.save-tag{font-size:11px;background:var(--success-bg);color:#27500A;padding:3px 8px;border-radius:99px;font-weight:700;}
+
+.pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.plan{background:#fff;border:2px solid var(--border);border-radius:16px;padding:24px;display:flex;flex-direction:column;transition:all 0.2s;position:relative;}
+.plan:hover{border-color:var(--primary-light);}
+.plan.featured{border-color:var(--primary);box-shadow:0 20px 50px -10px rgba(24,95,165,0.2);transform:scale(1.03);}
+.pop-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--accent),#FFB833);color:var(--text);font-size:11px;font-weight:700;padding:5px 14px;border-radius:99px;letter-spacing:0.04em;text-transform:uppercase;box-shadow:0 4px 12px rgba(255,200,89,0.5);}
+.plan-name{font-size:16px;font-weight:700;color:var(--primary-dark);margin-bottom:4px;}
+.plan-target{font-size:12px;color:var(--text-muted);margin-bottom:14px;min-height:34px;}
+.plan-price{font-size:38px;font-weight:800;color:var(--primary);letter-spacing:-0.025em;line-height:1;}
+.plan-price small{font-size:14px;color:var(--text-muted);font-weight:500;}
+.plan-old{font-size:12px;color:var(--text-light);text-decoration:line-through;margin-top:4px;min-height:18px;}
+.plan-economia{font-size:11.5px;color:var(--success);font-weight:600;margin-top:4px;min-height:16px;}
+.plan-cta{margin:18px 0;width:100%;justify-content:center;}
+.plan-feat{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--text-muted);padding:5px 0;}
+.plan-feat i{color:var(--success);font-size:16px;flex-shrink:0;margin-top:1px;}
+.plan-feat.off{color:var(--text-light);}
+.plan-feat.off i{color:#CCC;}
+.plan-feat.soon-feat{color:var(--soon);}
+.plan-feat.soon-feat i{color:var(--soon);}
+.plan-divider{font-size:11px;color:var(--text-light);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin:10px 0 4px;}
+
+.pricing-promise{margin-top:24px;padding:18px;background:#fff;border-radius:12px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;font-size:13px;color:var(--text-muted);}
+.pricing-promise span{display:flex;align-items:center;gap:6px;}
+.pricing-promise i{color:var(--primary);font-size:16px;}
+
+/* TESTIMONIALS */
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.testimonial{background:#fff;border:1px solid var(--border);border-radius:14px;padding:24px;position:relative;}
+.testimonial-result{display:inline-block;padding:5px 11px;background:var(--success-bg);color:#27500A;border-radius:8px;font-size:11.5px;font-weight:700;margin-bottom:14px;letter-spacing:0.02em;}
+.testimonial-stars{display:flex;gap:2px;margin-bottom:12px;color:var(--accent);font-size:16px;}
+.testimonial-text{font-size:14.5px;color:var(--text);line-height:1.6;margin-bottom:18px;font-style:italic;}
+.testimonial-text strong{font-style:normal;font-weight:700;background:rgba(255,200,89,0.3);padding:1px 5px;border-radius:3px;}
+.testimonial-author{display:flex;align-items:center;gap:10px;}
+.testimonial-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;}
+.testimonial-name{font-size:13px;font-weight:700;color:var(--text);}
+.testimonial-role{font-size:12px;color:var(--text-muted);}
+
+/* FAQ */
+.faq-section{background:var(--bg-soft);}
+.faq-grid{max-width:760px;margin:0 auto;}
+.faq-item{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden;}
+.faq-question{padding:18px 22px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-size:15px;font-weight:600;color:var(--primary-dark);user-select:none;}
+.faq-question:hover{background:#FAFAF7;}
+.faq-question i{color:var(--primary);transition:transform 0.2s;font-size:20px;}
+.faq-item.open .faq-question i{transform:rotate(180deg);}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height 0.3s ease;padding:0 22px;color:var(--text-muted);font-size:14px;line-height:1.65;}
+.faq-item.open .faq-answer{max-height:500px;padding:0 22px 18px;}
+.faq-answer strong{color:var(--text);font-weight:700;}
+
+/* FINAL CTA */
+.final-cta{background:linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 50%,var(--primary-light) 100%);padding:80px 0;position:relative;overflow:hidden;color:#fff;}
+.final-cta::before{content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(255,200,89,0.2),transparent 65%);}
+.final-cta::after{content:'';position:absolute;bottom:-200px;left:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(255,255,255,0.08),transparent 65%);}
+.final-cta-inner{position:relative;z-index:1;text-align:center;}
+.final-cta h2{font-size:48px;font-weight:800;letter-spacing:-0.025em;line-height:1.1;margin-bottom:18px;}
+.final-cta h2 .accent{color:var(--accent);}
+.final-cta p{font-size:18px;opacity:0.92;max-width:540px;margin:0 auto 28px;line-height:1.5;}
+.final-cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:20px;}
+.final-trust{font-size:13px;opacity:0.8;}
+
+/* FOOTER */
+.footer{background:#0A2540;color:#A7B9CC;padding:60px 0 30px;}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px;}
+.footer-brand{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.footer-brand svg{width:34px;height:34px;}
+.footer-brand-name{font-size:18px;font-weight:800;color:#fff;letter-spacing:-0.02em;}
+.footer-brand-name .flow{color:var(--accent);}
+.footer-desc{font-size:13px;line-height:1.5;margin-bottom:16px;max-width:280px;}
+.footer-social{display:flex;gap:8px;}
+.footer-social a{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;color:#A7B9CC;transition:all 0.15s;}
+.footer-social a:hover{background:var(--primary);color:#fff;}
+.footer-col h4{font-size:13px;color:#fff;font-weight:700;margin-bottom:14px;text-transform:uppercase;letter-spacing:0.06em;}
+.footer-col ul{list-style:none;}
+.footer-col ul li{padding:5px 0;}
+.footer-col ul a{color:#A7B9CC;font-size:13.5px;}
+.footer-col ul a:hover{color:#fff;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;font-size:12px;color:#7A8B9E;}
+
+/* RESPONSIVE */
+@media(max-width:980px){
+  .hero h1{font-size:42px;}
+  .section-title,.big-feature-content h3,.final-cta h2{font-size:32px;}
+  .stats-grid,.features-grid,.steps-grid,.pricing-grid,.testimonials-grid,.footer-grid,.value-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:760px){
+  .nav-links{display:none;}
+  .nav-cta .btn-ghost{display:none;}
+  .hero{padding:30px 0 50px;}
+  .hero-inner{grid-template-columns:1fr;}
+  .hero h1{font-size:32px;}
+  .hero-mockup{transform:none;margin-top:24px;}
+  .floating-notif{display:none;}
+  .section{padding:50px 0;}
+  .section-title,.big-feature-content h3,.final-cta h2{font-size:26px;}
+  .stats-grid,.features-grid,.steps-grid,.pricing-grid,.testimonials-grid,.footer-grid,.value-grid{grid-template-columns:1fr;}
+  .big-feature{grid-template-columns:1fr;gap:32px;margin-bottom:48px;}
+  .big-feature.reverse{direction:ltr;}
+  .stat-num{font-size:32px;}
+  .pricing-promise{flex-direction:column;gap:10px;}
+  .plan.featured{transform:none;}
+  .footer-bottom{flex-direction:column;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGO SVG -->
+<svg width="0" height="0" style="position:absolute;">
+  <defs>
+    <symbol id="logo" viewBox="0 0 64 64">
+      <rect width="64" height="64" rx="14" fill="url(#lg-grad)"/>
+      <path d="M 14 38 Q 22 30, 32 32 T 50 26" stroke="#FFC859" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M 16 42 L 22 42 L 24 36 L 40 36 L 42 42 L 48 42 L 48 46 L 44 46 L 42 48 L 38 48 L 38 46 L 26 46 L 26 48 L 22 48 L 20 46 L 16 46 Z" fill="#fff"/>
+      <circle cx="24" cy="46" r="2.5" fill="#0C447C"/>
+      <circle cx="40" cy="46" r="2.5" fill="#0C447C"/>
+    </symbol>
+    <linearGradient id="lg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#185FA5"/>
+      <stop offset="100%" stop-color="#378ADD"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announce">
+  🎁 <strong>Teste 7 dias grátis</strong> — sem cartão de crédito, com onboarding personalizado
+  <a href="#precos">começar agora →</a>
+</div>
+
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <div class="nav-logo">
+        <svg><use href="#logo"/></svg>
+        <span class="nav-logo-name">Rent<span class="flow">Flow</span></span>
+      </div>
+      <nav class="nav-links">
+        <a href="#beneficios" class="nav-link">Benefícios</a>
+        <a href="#features" class="nav-link">Recursos</a>
+        <a href="#como-funciona" class="nav-link">Como funciona</a>
+        <a href="#precos" class="nav-link">Planos</a>
+        <a href="#faq" class="nav-link">Dúvidas</a>
+      </nav>
+      <div class="nav-cta">
+        <a href="https://app.rentflowbr.com.br" class="btn btn-ghost">Entrar</a>
+        <a href="https://wa.me/5582981617654?text=Olá!%20Quero%20testar%20o%20RentFlow%20por%207%20dias%20grátis." class="btn btn-primary">Testar grátis</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge">
+          <i class="ti ti-sparkles"></i>
+          Para locadoras de 5 a 200+ veículos
+        </div>
+        <h1>Sua locadora <span class="accent">organizada de verdade</span>, do pré-cadastro ao financeiro.</h1>
+        <p class="lead">
+          Pré-cadastro online dos clientes, checklist com diagrama dos veículos, controle interno de multas, contratos personalizados e dashboard completo. <strong>Tudo em um só sistema, pensado para locadoras brasileiras.</strong>
+        </p>
+        <div class="hero-cta">
+          <a href="https://wa.me/5582981617654?text=Olá!%20Quero%20testar%20o%20RentFlow%20por%207%20dias%20grátis." class="btn btn-primary btn-xl">
+            Testar 7 dias grátis <i class="ti ti-arrow-right" style="font-size:18px;"></i>
+          </a>
+          <a href="https://wa.me/5582981617654?text=Olá!%20Quero%20conhecer%20o%20RentFlow." class="btn btn-outline btn-xl">
+            <i class="ti ti-brand-whatsapp" style="font-size:18px;"></i> Falar com atendente
+          </a>
+        </div>
+        <div class="hero-trust">
+          <span><i class="ti ti-check"></i> Sem cartão de crédito</span>
+          <span><i class="ti ti-check"></i> Onboarding personalizado</span>
+          <span><i class="ti ti-check"></i> Cancele quando quiser</span>
+        </div>
+      </div>
+
+      <div class="hero-mockup">
+        <div class="mockup-window">
+          <div class="mockup-titlebar">
+            <div class="mockup-dot" style="background:#FF5F57;"></div>
+            <div class="mockup-dot" style="background:#FFBD2E;"></div>
+            <div class="mockup-dot" style="background:#28CA42;"></div>
+            <div style="margin-left:auto;font-size:10px;color:#999;font-family:'JetBrains Mono',monospace;">app.rentflowbr.com.br</div>
+          </div>
+          <div class="mockup-content">
+            <div class="mockup-row">
+              <div class="mockup-side">
+                <div class="mockup-side-item active"><i class="ti ti-layout-dashboard" style="font-size:11px;"></i> Painel</div>
+                <div class="mockup-side-item">Reservas</div>
+                <div class="mockup-side-item">Locações</div>
+                <div class="mockup-side-item">Veículos</div>
+                <div class="mockup-side-item">Pré-cadastros</div>
+                <div class="mockup-side-item">Multas</div>
+              </div>
+              <div class="mockup-main">
+                <div class="mockup-metrics">
+                  <div class="mockup-metric"><div class="mockup-metric-label">Frota</div><div class="mockup-metric-val">42</div></div>
+                  <div class="mockup-metric"><div class="mockup-metric-label">Locação</div><div class="mockup-metric-val green">28</div></div>
+                  <div class="mockup-metric"><div class="mockup-metric-label">Receita</div><div class="mockup-metric-val green">R$ 38k</div></div>
+                </div>
+                <div class="mockup-chart">
+                  <div style="font-size:10px;color:var(--text-muted);font-weight:600;">RECEITA · ÚLTIMOS 7 DIAS</div>
+                  <div class="mockup-bars">
+                    <div class="mockup-bar"></div><div class="mockup-bar"></div><div class="mockup-bar"></div>
+                    <div class="mockup-bar"></div><div class="mockup-bar"></div><div class="mockup-bar"></div><div class="mockup-bar"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="floating-notif">
+          <div class="floating-notif-ic"><i class="ti ti-user-check"></i></div>
+          <div class="floating-notif-text">
+            <strong>Novo pré-cadastro recebido</strong><br>
+            <small>Carlos Melo · CNH válida · 4/4 documentos</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div>
+        <div class="stat-num">5 min</div>
+        <div class="stat-label">Para fazer uma retirada completa</div>
+      </div>
+      <div>
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Multi-tenant seguro com isolamento total</div>
+      </div>
+      <div>
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">Pré-cadastro online disponível</div>
+      </div>
+      <div>
+        <div class="stat-num">9+</div>
+        <div class="stat-label">Módulos integrados em um só sistema</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFÍCIOS -->
+<section class="value-section" id="beneficios">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Por que escolher o RentFlow</div>
+      <h2 class="section-title">Tudo que sua locadora precisa, <span class="accent">de verdade</span>.</h2>
+      <p class="section-sub">Não é planilha turbinada. É um sistema completo que organiza sua operação do começo ao fim, com identidade visual moderna que impressiona o cliente final.</p>
+    </div>
+
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-icon-big"><i class="ti ti-user-plus"></i></div>
+        <h3>Pré-cadastro online</h3>
+        <p>Compartilhe o <strong>link da sua locadora</strong> e receba clientes já com documentos e CNH preenchidos. Atendimento começa pronto.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon-big"><i class="ti ti-shield-check"></i></div>
+        <h3>Controle interno de multas</h3>
+        <p>Cadastre, vincule ao condutor responsável e mantenha o <strong>histórico completo</strong> de todas as infrações da sua frota.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon-big"><i class="ti ti-chart-bar"></i></div>
+        <h3>Dashboard que importa</h3>
+        <p>Frota, locações ativas, receita, agendamentos do dia, lembretes pendentes. <strong>Tudo em uma tela só.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Recursos completos</div>
+      <h2 class="section-title">9 módulos integrados que <span class="accent">funcionam de verdade</span></h2>
+      <p class="section-sub">Cada recurso pensado para a operação real de uma locadora brasileira de pequeno e médio porte.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon"><i class="ti ti-user-plus"></i></div>
+        <h3 class="feature-title">Pré-cadastro online</h3>
+        <p class="feature-desc">Seu cliente preenche dados e envia CNH pelo <strong>link exclusivo da sua locadora</strong>. Você aprova com 1 clique. Cliente chega na loja já validado.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="ti ti-clipboard-check"></i></div>
+        <h3 class="feature-title">Checklist com diagrama</h3>
+        <p class="feature-desc">Diagrama do veículo (carro ou moto) impresso no contrato com espaço para marcar avarias. <strong>Saída e retorno comparados</strong> em um único documento.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="ti ti-file-text"></i></div>
+        <h3 class="feature-title">Contratos personalizados</h3>
+        <p class="feature-desc">Edite cláusulas no editor visual, adicione sua logo, defina seu foro. <strong>Cada locadora com seu modelo próprio</strong> de contrato e termos.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="ti ti-alert-triangle"></i></div>
+        <h3 class="feature-title">Controle interno de multas</h3>
+        <p class="feature-desc">Cadastre multas, vincule ao condutor responsável da locação. <strong>Histórico completo</strong> por veículo e por cliente. Nunca mais esqueça uma multa.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="ti ti-calendar-event"></i></div>
+        <h3 class="feature-title">Reservas e agendamentos</h3>
+        <p class="feature-desc">Sistema de reservas com voucher impresso. Veja sua agenda do dia, próximas retiradas e devoluções <strong>em tempo real</strong>.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="ti ti-swap"></i></div>
+        <h3 class="feature-title">Substituição de veículos</h3>
+        <p class="feature-desc">Veículo deu pane? Substitua sem fechar contrato. <strong>Termo de substituição gerado automaticamente</strong> com dados do veículo anterior e do novo.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="ti ti-users"></i></div>
+        <h3 class="feature-title">Equipe com permissões</h3>
+        <p class="feature-desc">Convide atendentes, gerentes e financeiro por e-mail. <strong>Cada um vê o que precisa ver</strong>, sem bagunça nem vazamento de dados.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="ti ti-chart-pie"></i></div>
+        <h3 class="feature-title">Relatórios detalhados</h3>
+        <p class="feature-desc">Receita por período, ocupação da frota, ranking de clientes, multas por veículo. <strong>Decisões baseadas em dados</strong>, não em achismo.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="ti ti-tool"></i></div>
+        <h3 class="feature-title">Manutenção da frota</h3>
+        <p class="feature-desc">Registre revisões, trocas de óleo, pneus, reparos. <strong>Histórico completo do veículo</strong> com lembretes automáticos por KM ou data.</p>
+      </div>
+    </div>
+
+    <!-- EM BREVE -->
+    <div style="margin-top:40px;text-align:center;">
+      <div class="section-tag" style="background:var(--soon-bg);color:var(--soon);">Em desenvolvimento</div>
+      <h3 style="font-size:26px;font-weight:700;color:var(--primary-dark);margin:14px 0 30px;">Recursos que chegam em breve</h3>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card soon">
+        <div class="feature-icon"><i class="ti ti-qrcode"></i></div>
+        <h3 class="feature-title">Pix integrado <span class="soon-tag">Em breve</span></h3>
+        <p class="feature-desc">Gateway de pagamento real, com QR Code automático e <strong>confirmação na hora</strong> diretamente no sistema.</p>
+      </div>
+      <div class="feature-card soon">
+        <div class="feature-icon"><i class="ti ti-receipt-2"></i></div>
+        <h3 class="feature-title">NF-e automática <span class="soon-tag">Em breve</span></h3>
+        <p class="feature-desc">Cada locação fechada gera <strong>nota fiscal eletrônica</strong> sem você levantar um dedo. Conformidade fiscal automatizada.</p>
+      </div>
+      <div class="feature-card soon">
+        <div class="feature-icon"><i class="ti ti-brand-whatsapp"></i></div>
+        <h3 class="feature-title">WhatsApp API <span class="soon-tag">Em breve</span></h3>
+        <p class="feature-desc">Lembretes, cobranças e confirmações <strong>disparados automaticamente</strong> via WhatsApp Business oficial.</p>
+      </div>
+      <div class="feature-card soon">
+        <div class="feature-icon"><i class="ti ti-file-invoice"></i></div>
+        <h3 class="feature-title">Boleto bancário <span class="soon-tag">Em breve</span></h3>
+        <p class="feature-desc">Boleto gerado direto no sistema com <strong>baixa automática</strong>. Para empresas e contratos corporativos.</p>
+      </div>
+      <div class="feature-card soon">
+        <div class="feature-icon"><i class="ti ti-building-store"></i></div>
+        <h3 class="feature-title">Multi-filial <span class="soon-tag">Em breve</span></h3>
+        <p class="feature-desc">Gerencie múltiplas unidades em um só painel. <strong>Cada filial com sua frota</strong>, equipe e relatórios próprios.</p>
+      </div>
+      <div class="feature-card soon">
+        <div class="feature-icon"><i class="ti ti-shield-cog"></i></div>
+        <h3 class="feature-title">Transferência SISCONTRAN <span class="soon-tag">Em breve</span></h3>
+        <p class="feature-desc">Transferência de multas para o condutor <strong>diretamente pelo sistema</strong>, com integração oficial ao DENATRAN.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="section how-section" id="como-funciona">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Como funciona</div>
+      <h2 class="section-title">Da reserva à devolução em <span class="accent">4 passos guiados</span></h2>
+      <p class="section-sub">Cada etapa do RentFlow foi desenhada com locadoras reais. Você não precisa decorar nada — o sistema te guia.</p>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <h3>Cliente faz pré-cadastro</h3>
+        <p>Envia link pelo WhatsApp ou disponibiliza QR Code no balcão. Cliente preenche dados e CNH em 5 minutos pelo celular.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <h3>Atendente aprova</h3>
+        <p>Recebe notificação no painel, confere documentos, aprova com 1 clique. Cliente vira cadastro automaticamente.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <h3>Retirada em 5 minutos</h3>
+        <p>Cliente chega, atendente faz a retirada, imprime contrato e checklist personalizado, cliente assina e leva o carro.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">04</div>
+        <h3>Devolução tranquila</h3>
+        <p>Veículo volta, KM e tanque registrados, termo de devolução impresso. Cliente quita o que falta e o ciclo encerra.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BIG FEATURES -->
+<section class="section">
+  <div class="container">
+
+    <div class="big-feature">
+      <div class="big-feature-content">
+        <div class="section-tag">Pré-cadastro inteligente</div>
+        <h3>Cliente preenche tudo <span class="accent">antes de chegar na loja</span></h3>
+        <p>Cada locadora tem seu <strong>link personalizado</strong> de pré-cadastro. Compartilhe no WhatsApp, Instagram ou imprima o QR Code no balcão. Cliente preenche dados pessoais, endereço, CNH e envia fotos dos documentos — tudo pelo celular dele.</p>
+        <ul class="feature-list">
+          <li><i class="ti ti-circle-check-filled"></i> <strong>Link exclusivo</strong> com sua logo e nome da locadora</li>
+          <li><i class="ti ti-circle-check-filled"></i> <strong>Formulário em 3 etapas</strong> intuitivo no celular</li>
+          <li><i class="ti ti-circle-check-filled"></i> <strong>Upload de 4 documentos</strong> (CNH frente/verso, comprovante, selfie)</li>
+          <li><i class="ti ti-circle-check-filled"></i> <strong>Aprovação em 1 clique</strong> pelo atendente</li>
+          <li><i class="ti ti-circle-check-filled"></i> <strong>Cliente criado automaticamente</strong> ao aprovar</li>
+        </ul>
+      </div>
+      <div class="big-feature-visual">
+        <div class="visual-inner">
+          <div class="precad-preview">
+            <div style="font-size:11px;color:var(--text-muted);font-weight:600;margin-bottom:8px;">PRÉ-CADASTROS ONLINE · HOJE</div>
+            <div class="precad-item">
+              <div class="precad-ic green"><i class="ti ti-user-check"></i></div>
+              <div class="precad-content">
+                <div class="precad-title">Carlos Melo · Aprovado</div>
+                <div class="precad-sub">CNH válida · 4/4 documentos · convertido em cliente</div>
+              </div>
+            </div>
+            <div class="precad-item">
+              <div class="precad-ic amber"><i class="ti ti-clock"></i></div>
+              <div class="precad-content">
+                <div class="precad-title">Marina Silva · Aguardando análise</div>
+                <div class="precad-sub">Recebido há 12 min · 4/4 documentos</div>
+              </div>
+            </div>
+            <div class="precad-item">
+              <div class="precad-ic blue"><i class="ti ti-mail"></i></div>
+              <div class="precad-content">
+                <div class="precad-title">Pedro Souza · Em análise</div>
+                <div class="precad-sub">Atendente conferindo documentos</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="big-feature reverse">
+      <div class="big-feature-content">
+        <div class="section-tag">Checklist profissional</div>
+        <h3>Diagrama do veículo <span class="accent">no contrato impresso</span></h3>
+        <p>O sistema reconhece o tipo de carroceria do veículo (hatch, sedan, SUV, pickup, van, moto) e <strong>imprime o diagrama correspondente</strong> no checklist. Atendente marca avarias com símbolos padronizados. Cliente assina. Saída e retorno comparados em uma só folha.</p>
+        <ul class="feature-list">
+          <li><i class="ti ti-circle-check-filled"></i> <strong>6 tipos de carroceria</strong> com diagramas próprios</li>
+          <li><i class="ti ti-circle-check-filled"></i> <strong>Saída e retorno</strong> lado a lado para comparação</li>
+          <li><i class="ti ti-circle-check-filled"></i> <strong>Legenda padronizada</strong> (amassado, riscado, quebrado)</li>
+          <li><i class="ti ti-circle-check-filled"></i> <strong>Termo de responsabilidade</strong> integrado no documento</li>
+          <li><i class="ti ti-circle-check-filled"></i> <strong>Logo e dados</strong> da locadora no cabeçalho</li>
+        </ul>
+      </div>
+      <div class="big-feature-visual">
+        <div class="visual-inner">
+          <div class="car-mini">
+            <div class="car-mini-title">CHECKLIST · POLO · KML-3552</div>
+            <svg class="car-svg" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+              <rect x="20" y="35" width="160" height="30" rx="6" fill="#EAF3DE" stroke="#639922" stroke-width="1.5"/>
+              <rect x="35" y="20" width="130" height="20" rx="4" fill="#EAF3DE" stroke="#639922" stroke-width="1.5"/>
+              <rect x="35" y="60" width="55" height="20" rx="4" fill="#FCEBEB" stroke="#E24B4A" stroke-width="1.5"/>
+              <rect x="105" y="60" width="60" height="20" rx="4" fill="#EAF3DE" stroke="#639922" stroke-width="1.5"/>
+              <circle cx="40" cy="80" r="6" fill="#1A1A1A"/>
+              <circle cx="160" cy="80" r="6" fill="#1A1A1A"/>
+              <text x="100" y="55" text-anchor="middle" font-size="8" fill="#27500A" font-family="Inter" font-weight="600">Capô · OK</text>
+              <text x="62" y="74" text-anchor="middle" font-size="7" fill="#791F1F" font-family="Inter" font-weight="600">Pt.Esq · risco</text>
+              <text x="135" y="74" text-anchor="middle" font-size="7" fill="#27500A" font-family="Inter" font-weight="600">Pt.Dir · OK</text>
+            </svg>
+            <div style="margin-top:10px;font-size:10px;color:var(--text-muted);">
+              <span style="display:inline-flex;align-items:center;gap:4px;margin-right:8px;"><span style="width:8px;height:8px;background:#EAF3DE;border:1px solid #639922;display:inline-block;border-radius:2px;"></span> Sem avaria</span>
+              <span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;background:#FCEBEB;border:1px solid #E24B4A;display:inline-block;border-radius:2px;"></span> Avaria marcada</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="big-feature">
+      <div class="big-feature-content">
+        <div class="section-tag">Dashboard executivo</div>
+        <h3>Tudo que importa <span class="accent">em uma tela só</span></h3>
+        <p>Acabou de chegar no escritório? Em <strong>10 segundos</strong> você vê: quantos veículos estão em locação, quanto entrou de receita no mês, retornos previstos para hoje, agenda do dia, lembretes pendentes e disponibilidade da frota. <strong>Sem precisar abrir 5 planilhas.</strong></p>
+        <ul class="feature-list">
+          <li><i class="ti ti-circle-check-filled"></i> <strong>4 cards principais:</strong> frota, em locação, retornos, receita</li>
+          <li><i class="ti ti-circle-check-filled"></i> <strong>Ações rápidas:</strong> novo orçamento, retirada, devolução</li>
+          <li><i class="ti ti-circle-check-filled"></i> <strong>Locações ativas</strong> com status em tempo real</li>
+          <li><i class="ti ti-circle-check-filled"></i> <strong>Agenda do dia</strong> com retiradas e devoluções</li>
+          <li><i class="ti ti-circle-check-filled"></i> <strong>Disponibilidade da frota</strong> com barra visual</li>
+        </ul>
+      </div>
+      <div class="big-feature-visual">
+        <div class="visual-inner">
+          <div class="mini-dash">
+            <div class="mini-dash-title">PAINEL · L.A. LOCADORA · 06/06/2026</div>
+            <div class="mini-dash-row">
+              <span>Frota total</span>
+              <span class="mini-badge blue">42 veículos</span>
+            </div>
+            <div class="mini-dash-row">
+              <span>Em locação agora</span>
+              <span class="mini-badge green">28 (67%)</span>
+            </div>
+            <div class="mini-dash-row">
+              <span>Retornos previstos hoje</span>
+              <span class="mini-badge amber">5 veículos</span>
+            </div>
+            <div class="mini-dash-row">
+              <span>Pré-cadastros pendentes</span>
+              <span class="mini-badge blue">3 aguardando</span>
+            </div>
+            <div class="mini-dash-row" style="border-top:1px solid var(--border);margin-top:6px;padding-top:10px;font-weight:700;">
+              <span>Receita do mês</span>
+              <span style="color:var(--success);">R$ 38.450,00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section pricing-section" id="precos">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Planos transparentes</div>
+      <h2 class="section-title">Escolha o plano <span class="accent">do tamanho da sua frota</span></h2>
+      <p class="section-sub">Sem fidelidade, sem pegadinha. Pague mensal ou economize <strong>20% no plano anual</strong>.</p>
+    </div>
+
+    <div class="pricing-toggle">
+      <span class="toggle-opt active" id="tg-mensal" onclick="setCycle('mensal')">Mensal</span>
+      <span class="toggle-opt" id="tg-anual" onclick="setCycle('anual')">Anual <span class="save-tag">−20%</span></span>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="plan">
+        <div class="plan-name">Start</div>
+        <div class="plan-target">Locadora começando (até 25 veículos)</div>
+        <div class="plan-price" id="p1">R$ 249<small>/mês</small></div>
+        <div class="plan-old" id="o1"></div>
+        <div class="plan-economia" id="e1"></div>
+        <a href="https://wa.me/5582981617654?text=Olá!%20Quero%20o%20plano%20Start%20do%20RentFlow." class="btn btn-outline plan-cta">Começar com Start</a>
+        <div class="plan-feat"><i class="ti ti-car"></i> Até 25 veículos</div>
+        <div class="plan-feat"><i class="ti ti-users"></i> 3 usuários</div>
+        <div class="plan-divider">Incluído</div>
+        <div class="plan-feat"><i class="ti ti-check"></i> Pré-cadastro online</div>
+        <div class="plan-feat"><i class="ti ti-check"></i> Checklist com diagrama</div>
+        <div class="plan-feat"><i class="ti ti-check"></i> Contratos personalizados</div>
+        <div class="plan-feat"><i class="ti ti-check"></i> Controle interno de multas</div>
+        <div class="plan-feat"><i class="ti ti-check"></i> Dashboard básico</div>
+        <div class="plan-feat"><i class="ti ti-check"></i> Suporte por e-mail</div>
+      </div>
+
+      <div class="plan featured">
+        <div class="pop-badge">Mais escolhido</div>
+        <div class="plan-name">Pro</div>
+        <div class="plan-target">Locadora em crescimento (até 60 veículos)</div>
+        <div class="plan-price" id="p2">R$ 399<small>/mês</small></div>
+        <div class="plan-old" id="o2"></div>
+        <div class="plan-economia" id="e2"></div>
+        <a href="https://wa.me/5582981617654?text=Olá!%20Quero%20o%20plano%20Pro%20do%20RentFlow." class="btn btn-primary plan-cta">Começar com Pro</a>
+        <div class="plan-feat"><i class="ti ti-car"></i> Até 60 veículos</div>
+        <div class="plan-feat"><i class="ti ti-users"></i> 8 usuários</div>
+        <div class="plan-divider">Tudo do Start +</div>
+        <div class="plan-feat"><i class="ti ti-check"></i> Relatórios detalhados</div>
+        <div class="plan-feat"><i class="ti ti-check"></i> Dashboard executivo</div>
+        <div class="plan-feat"><i class="ti ti-check"></i> Suporte por WhatsApp</div>
+        <div class="plan-feat"><i class="ti ti-check"></i> Onboarding personalizado</div>
+        <div class="plan-feat soon-feat"><i class="ti ti-clock"></i> Pix integrado (em breve)</div>
+        <div class="plan-feat soon-feat"><i class="ti ti-clock"></i> NF-e automática (em breve)</div>
+      </div>
+
+      <div class="plan">
+        <div class="plan-name">Business</div>
+        <div class="plan-target">Locadora consolidada (até 120 veículos)</div>
+        <div class="plan-price" id="p3">R$ 699<small>/mês</small></div>
+        <div class="plan-old" id="o3"></div>
+        <div class="plan-economia" id="e3"></div>
+        <a href="https://wa.me/5582981617654?text=Olá!%20Quero%20o%20plano%20Business%20do%20RentFlow." class="btn btn-outline plan-cta">Começar com Business</a>
+        <div class="plan-feat"><i class="ti ti-car"></i> Até 120 veículos</div>
+        <div class="plan-feat"><i class="ti ti-users"></i> Usuários ilimitados</div>
+        <div class="plan-divider">Tudo do Pro +</div>
+        <div class="plan-feat"><i class="ti ti-check"></i> Backup diário automático</div>
+        <div class="plan-feat"><i class="ti ti-check"></i> Suporte prioritário</div>
+        <div class="plan-feat soon-feat"><i class="ti ti-clock"></i> Multi-filial (em breve)</div>
+        <div class="plan-feat soon-feat"><i class="ti ti-clock"></i> WhatsApp API (em breve)</div>
+        <div class="plan-feat soon-feat"><i class="ti ti-clock"></i> Boleto bancário (em breve)</div>
+        <div class="plan-feat soon-feat"><i class="ti ti-clock"></i> Transferência multas SISCONTRAN (em breve)</div>
+      </div>
+
+      <div class="plan">
+        <div class="plan-name">Enterprise</div>
+        <div class="plan-target">Frotas grandes (200+ veículos)</div>
+        <div class="plan-price" style="font-size:24px;">Sob consulta</div>
+        <div class="plan-old">Negociação personalizada</div>
+        <div class="plan-economia"></div>
+        <a href="https://wa.me/5582981617654?text=Olá!%20Quero%20o%20plano%20Enterprise%20do%20RentFlow%20(frota%20200%2B%20veículos)." class="btn btn-outline plan-cta">Falar com atendente</a>
+        <div class="plan-feat"><i class="ti ti-car"></i> Veículos ilimitados</div>
+        <div class="plan-feat"><i class="ti ti-users"></i> Usuários ilimitados</div>
+        <div class="plan-divider">Tudo do Business +</div>
+        <div class="plan-feat"><i class="ti ti-check"></i> Onboarding presencial</div>
+        <div class="plan-feat"><i class="ti ti-check"></i> Gerente de conta dedicado</div>
+        <div class="plan-feat"><i class="ti ti-check"></i> SLA garantido</div>
+        <div class="plan-feat"><i class="ti ti-check"></i> Contrato personalizado</div>
+        <div class="plan-feat"><i class="ti ti-check"></i> Treinamento da equipe</div>
+      </div>
+    </div>
+
+    <div class="pricing-promise">
+      <span><i class="ti ti-gift"></i> 7 dias grátis</span>
+      <span><i class="ti ti-credit-card-off"></i> Sem cartão de crédito</span>
+      <span><i class="ti ti-headset"></i> Onboarding personalizado</span>
+      <span><i class="ti ti-shield-check"></i> Cancele quando quiser</span>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Quem usa, recomenda</div>
+      <h2 class="section-title">Locadoras que <span class="accent">profissionalizaram a operação</span></h2>
+      <p class="section-sub">Resultados reais de quem saiu da planilha e começou a crescer com método.</p>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial">
+        <div class="testimonial-result">Atendimento 3x mais rápido</div>
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"O pré-cadastro online mudou nossa operação. <strong>Cliente chega na loja já aprovado, só pega a chave</strong>. Antes eu fazia 4 retiradas por dia, hoje faço 12. O sistema é bonito demais, cliente fica impressionado."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">AM</div>
+          <div>
+            <div class="testimonial-name">Anderson Meneses</div>
+            <div class="testimonial-role">L.A. Locadora · Maceió-AL</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <div class="testimonial-result">Multas controladas 100%</div>
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Eu vivia perdendo multa que chegava 3 meses depois. Agora <strong>tenho o histórico completo de cada veículo</strong> e sei exatamente quem dirigia em cada data. Mudou meu controle financeiro."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">CM</div>
+          <div>
+            <div class="testimonial-name">Carla Marques</div>
+            <div class="testimonial-role">Locadora em crescimento · Pro</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <div class="testimonial-result">Equipe organizada</div>
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Tenho 3 atendentes. Cada um tem seu acesso, cada um vê o que precisa. <strong>Acabou a bagunça das planilhas</strong> compartilhadas com erro. E o contrato com a minha logo ficou muito profissional."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">JF</div>
+          <div>
+            <div class="testimonial-name">João Ferreira</div>
+            <div class="testimonial-role">Locadora regional · Business</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section faq-section" id="faq">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Dúvidas frequentes</div>
+      <h2 class="section-title">As perguntas que <span class="accent">todo dono de locadora</span> faz</h2>
+    </div>
+
+    <div class="faq-grid">
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          O RentFlow vale a pena se eu tenho poucos veículos?
+          <i class="ti ti-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          Vale, sim. Locadora com 5 a 25 veículos já tem complexidade suficiente para perder dinheiro com checklist no papel, planilhas espalhadas e contratos no Word. <strong>O plano Start (R$ 249/mês) atende até 25 veículos</strong> e já inclui pré-cadastro online, checklist com diagrama, contratos personalizados e controle de multas. Sai mais barato que contratar um atendente extra.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Como funciona o teste de 7 dias?
+          <i class="ti ti-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          Você fala com um atendente pelo WhatsApp, recebe acesso ao sistema com <strong>onboarding personalizado</strong> (vídeo-chamada de 30 minutos), configuramos sua locadora junto, você adiciona alguns veículos e clientes, testa o sistema por 7 dias completos. <strong>Não pedimos cartão de crédito.</strong> Se gostar, paga o primeiro mês via Pix. Se não gostar, simplesmente não paga.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          E se eu já uso outro sistema, dá pra migrar?
+          <i class="ti ti-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          Sim. Durante o onboarding, ajudamos você a importar sua base de clientes e veículos. Se você tem uma planilha ou exportação do sistema antigo, <strong>nossa equipe te orienta na migração</strong>. Recomendamos começar gradualmente: cadastra os veículos, depois os clientes que mais alugam, e vai usando o RentFlow para as novas locações. Em 1-2 semanas você terá tudo migrado.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Funciona em celular e tablet?
+          <i class="ti ti-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          Sim, o RentFlow é <strong>100% responsivo</strong>. Funciona em qualquer navegador moderno (Chrome, Edge, Safari, Firefox) em computador, tablet ou celular. Os atendentes podem usar tablet no pátio para checklist, e os clientes preenchem o pré-cadastro direto no celular deles. Não precisa instalar app.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Meus dados ficam seguros? E os dos meus clientes?
+          <i class="ti ti-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          Totalmente. Usamos <strong>infraestrutura na Vercel e Supabase</strong> (mesma tecnologia usada por empresas como GitHub e Netflix), com criptografia SSL em todas as conexões. Cada locadora tem seu <strong>isolamento total no banco de dados</strong> (Row Level Security) — uma locadora nunca consegue ver dados da outra. Backup automático diário e conformidade com a LGPD. Os dados são seus — pode exportar a qualquer momento.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Tem fidelidade ou multa por cancelamento?
+          <i class="ti ti-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <strong>Zero fidelidade.</strong> Você pode cancelar a qualquer momento, sem multa, sem taxa. Plano mensal: cancelou hoje, pagou até o fim do mês. Plano anual com 20% de desconto: você economiza, mas se cancelar antes, ajustamos proporcionalmente os meses não usados. Confiança é a base do nosso negócio.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Como funciona o pagamento da assinatura?
+          <i class="ti ti-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          Cobrança via <strong>Pix mensal</strong>. Você recebe o aviso de vencimento, faz o Pix, e enviamos a confirmação. Em breve teremos cobrança automática via gateway, mas por enquanto é manual via Pix. Plano anual: pagamento à vista com 20% de desconto, e você fica sem se preocupar com mensalidade por 12 meses.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          O que acontece se eu ultrapassar o limite de veículos?
+          <i class="ti ti-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          O sistema <strong>avisa quando você está chegando perto do limite</strong> (card no dashboard com barra de progresso) e bloqueia o cadastro do veículo extra quando atinge o limite. Aí você tem duas opções: <strong>fazer upgrade para o plano superior</strong> (Start → Pro → Business) ou aguardar para cadastrar quando algum veículo for desativado. Upgrade é instantâneo, sem perder dados.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container">
+    <div class="final-cta-inner">
+      <h2>Sua locadora pronta para <span class="accent">crescer de verdade?</span></h2>
+      <p>Pare de gerenciar com planilha. Comece a profissionalizar sua operação hoje, com onboarding personalizado da nossa equipe.</p>
+      <div class="final-cta-btns">
+        <a href="https://wa.me/5582981617654?text=Olá!%20Quero%20testar%20o%20RentFlow%20por%207%20dias%20grátis." class="btn btn-accent btn-xl">
+          Testar 7 dias grátis <i class="ti ti-arrow-right" style="font-size:18px;"></i>
+        </a>
+        <a href="https://wa.me/5582981617654?text=Olá!%20Quero%20conhecer%20o%20RentFlow." class="btn btn-ghost btn-xl" style="color:#fff;border:1.5px solid rgba(255,255,255,0.3);">
+          <i class="ti ti-brand-whatsapp" style="font-size:18px;"></i> Falar com atendente
+        </a>
+      </div>
+      <p class="final-trust">7 dias grátis · sem cartão · onboarding personalizado · cancele quando quiser</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <svg><use href="#logo"/></svg>
+          <span class="footer-brand-name">Rent<span class="flow">Flow</span></span>
+        </div>
+        <p class="footer-desc">O sistema profissional de gestão para locadoras de veículos brasileiras que querem crescer com método.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram"><i class="ti ti-brand-instagram"></i></a>
+          <a href="#" aria-label="Facebook"><i class="ti ti-brand-facebook"></i></a>
+          <a href="https://wa.me/5582981617654" aria-label="WhatsApp"><i class="ti ti-brand-whatsapp"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Produto</h4>
+        <ul>
+          <li><a href="#features">Recursos</a></li>
+          <li><a href="#precos">Planos e preços</a></li>
+          <li><a href="#como-funciona">Como funciona</a></li>
+          <li><a href="#beneficios">Benefícios</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Suporte</h4>
+        <ul>
+          <li><a href="https://wa.me/5582981617654">Falar no WhatsApp</a></li>
+          <li><a href="mailto:contato@rentflowbr.com.br">contato@rentflowbr.com.br</a></li>
+          <li><a href="#faq">Dúvidas frequentes</a></li>
+          <li><a href="https://app.rentflowbr.com.br">Entrar no sistema</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Empresa</h4>
+        <ul>
+          <li><a href="#">Termos de uso</a></li>
+          <li><a href="#">Política de privacidade</a></li>
+          <li><a href="#">Conformidade LGPD</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2026 RentFlow · Todos os direitos reservados</div>
+      <div>Maceió-AL · Feito com ♥ no Brasil</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+function toggleFaq(el){
+  var item = el.parentElement;
+  item.classList.toggle('open');
+}
+
+var prices = {
+  mensal: {
+    p1:'R$ 249', p2:'R$ 399', p3:'R$ 699',
+    o1:'', o2:'', o3:'',
+    e1:'', e2:'', e3:''
+  },
+  anual: {
+    p1:'R$ 199,20', p2:'R$ 319,20', p3:'R$ 559,20',
+    o1:'R$ 249/mês no mensal', o2:'R$ 399/mês no mensal', o3:'R$ 699/mês no mensal',
+    e1:'Economize R$ 597,60/ano', e2:'Economize R$ 957,60/ano', e3:'Economize R$ 1.677,60/ano'
+  }
+};
+
+function setCycle(c){
+  document.getElementById('tg-mensal').classList.toggle('active', c==='mensal');
+  document.getElementById('tg-anual').classList.toggle('active', c==='anual');
+  var pr = prices[c];
+  document.getElementById('p1').innerHTML = pr.p1 + '<small>/mês</small>';
+  document.getElementById('p2').innerHTML = pr.p2 + '<small>/mês</small>';
+  document.getElementById('p3').innerHTML = pr.p3 + '<small>/mês</small>';
+  document.getElementById('o1').textContent = pr.o1;
+  document.getElementById('o2').textContent = pr.o2;
+  document.getElementById('o3').textContent = pr.o3;
+  document.getElementById('e1').textContent = pr.e1;
+  document.getElementById('e2').textContent = pr.e2;
+  document.getElementById('e3').textContent = pr.e3;
+}
+
+// Inicializar com mensal selecionado
+setCycle('mensal');
+
+// Abrir primeira FAQ por padrão
+document.querySelector('.faq-item').classList.add('open');
+</script>
+
+</body>
+</html>
